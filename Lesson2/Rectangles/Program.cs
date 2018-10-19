@@ -77,6 +77,12 @@ namespace Rectangles
                     yield return new RectanglesTestRoomTestCase(new Rectangle(20 * x, 20 * y, 20, 20),
                         new Rectangle(0, 0, 20, 20), true, 0, -1);
                 }
+            yield return new RectanglesTestRoomTestCase(new Rectangle(20, 2, 40, 4), new Rectangle(10, 2, 10, 0), true,
+                0, -1);
+            yield return new RectanglesTestRoomTestCase(new Rectangle(20, 2, 40, 4), new Rectangle(20, 2, 0, 0), true,
+                0, 1);
+            yield return new RectanglesTestRoomTestCase(new Rectangle(20, 2, 40, 4), new Rectangle(20, 2, 0, 1), true,
+                0, 1);
         }
     }
 
@@ -103,6 +109,12 @@ namespace Rectangles
 
         protected override void InternalVisualize(TestCaseUI ui)
         {
+            // Добавляет оси координат:
+            //   - красная — OY
+            //   - зеленая — OX
+            ui.Line(0, 0, 0, 50, actualAnswerPen);
+            ui.Line(0, 0, 50, 0, expectedAnswerPen);
+
             ui.Rect(new System.Drawing.Rectangle(r1.Left, r1.Top, r1.Width, r1.Height), neutralPen);
             ui.Rect(new System.Drawing.Rectangle(r2.Left, r2.Top, r2.Width, r2.Height), neutralPen);
             ui.Log("r1: {0}", r1);
