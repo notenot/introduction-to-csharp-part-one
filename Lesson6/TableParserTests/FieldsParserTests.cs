@@ -12,6 +12,9 @@ namespace TableParserTests
 
             Assert.AreEqual(expectedOutput.Length, result.Length);
 
+            if (result.Length == 0)
+                return;
+
             for (var i = 0; i < result.Length; ++i)
                 Assert.AreEqual(expectedOutput[i], result[i]);
         }
@@ -27,7 +30,7 @@ namespace TableParserTests
         }
 
         [TestMethod]
-        public void LeadingAndtTrailingSpaces()
+        public void LeadingAndTrailingSpaces()
         {
             TestParseLine(" a", new[] { "a" });
             TestParseLine("   a", new[] { "a" });
@@ -65,7 +68,7 @@ namespace TableParserTests
         }
 
         [TestMethod]
-        public void UnclosedQuotationMarksAndApostrophes()
+        public void UnclosedQuotationMarks()
         {
             TestParseLine("\"", new[] { "" });
             TestParseLine("\'", new[] { "" });
@@ -74,7 +77,7 @@ namespace TableParserTests
         }
 
         [TestMethod]
-        public void NestedQuotationMarksAndApostrophes()
+        public void NestedQuotationMarks()
         {
             TestParseLine("\"''\"", new[] { "''" });
             TestParseLine("\"''''\"", new[] { "''''" });
@@ -84,7 +87,7 @@ namespace TableParserTests
         }
 
         [TestMethod]
-        public void SpacesInQuotationMarksAndApostrophes()
+        public void SpacesInQuotationMarks()
         {
             TestParseLine("' '", new[] { " " });
             TestParseLine("' a '", new[] { " a " });
