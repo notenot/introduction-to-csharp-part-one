@@ -97,5 +97,11 @@ namespace TableParserTests
             TestParseLine("\" a \"", new[] { " a " });
             TestParseLine("\"b b\"", new[] { "b b" });
         }
+
+        [TestMethod]
+        public void AdditionalTests()
+        {
+            TestParseLine("\"\\\\\" b", new[] { "\\", "b" });
+        }
     }
 }
