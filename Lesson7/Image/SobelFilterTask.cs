@@ -8,10 +8,10 @@ namespace Recognizer
 		Разберитесь, как работает нижеследующий код (называемый фильтрацией Собеля), 
 		и какое отношение к нему имеют эти матрицы:
 		
-		     | -1 -2 -1 |           | -1  0  1 |
-		Sx = |  0  0  0 |      Sy = | -2  0  2 |
-		     |  1  2  1 |           | -1  0  1 |
-		
+		     | -1 -2 -1 |           | -1  0  1 |                      | -1  0  1 |        | -1 -2 -1 |
+		Sx = |  0  0  0 |      Sy = | -2  0  2 |  В pdf наоборот Sx = | -2  0  2 | и Sy = |  0  0  0 |
+		     |  1  2  1 |           | -1  0  1 |                      | -1  0  1 |        |  1  2  1 |
+		 
 		https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80_%D0%A1%D0%BE%D0%B1%D0%B5%D0%BB%D1%8F
 		
 		Попробуйте заменить фильтр Собеля 3x3 на фильтр Собеля 5x5 или другой аналогичный фильтр и сравните результаты. 
@@ -27,14 +27,24 @@ namespace Recognizer
         {
             var width = g.GetLength(0);
             var height = g.GetLength(1);
+            var sxWidth = sx.GetLength(0);
+            var sxHeight = sx.GetLength(1);
+            var indent = sxWidth == 1 ? 0 : (sxWidth - 1) / 2;
+
             var result = new double[width, height];
-            for (int x = 1; x < width - 1; x++)
-                for (int y = 1; y < height - 1; y++)
+            for (var x = indent; x < width - indent; x++)
+                for (var y = indent; y < height - indent; y++) 
                 {
-                    // Вместо этого кода должно быть поэлементное умножение матриц sx и полученной из неё sy на окрестность точки (x, y)
-					// Такая операция ещё называется свёрткой (Сonvolution)
-                    var gx = -g[x - 1, y - 1] - 2 * g[x, y - 1] - g[x + 1, y - 1] + g[x - 1, y + 1] + 2 * g[x, y + 1] + g[x + 1, y + 1];
-                    var gy = -g[x - 1, y - 1] - 2 * g[x - 1, y] - g[x - 1, y + 1] + g[x + 1, y - 1] + 2 * g[x + 1, y] + g[x + 1, y + 1];
+                    var gx = 0.0;
+                    var gy = 0.0;
+
+                    for (var i = 0; i < sxWidth; ++i)
+                        for (var j = 0; j < sxHeight; ++j)
+                        {
+                            gx += sx[i, j] * g[x + i - indent, y + j - indent];
+                            gy += sx[j, i] * g[x + i - indent, y + j - indent];
+                        }
+
                     result[x, y] = Math.Sqrt(gx * gx + gy * gy);
                 }
             return result;
