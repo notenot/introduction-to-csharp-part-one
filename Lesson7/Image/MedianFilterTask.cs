@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Recognizer
 {
@@ -15,7 +17,39 @@ namespace Recognizer
 		 */
 		public static double[,] MedianFilter(double[,] original)
 		{
-			return original;
+		    var width = original.GetLength(0);
+		    var height = original.GetLength(1);
+		    var filtered = new double[width, height];
+
+            for (var y = 0; y < height; ++y)
+                for (var x = 0; x < width; ++x)
+                    filtered[x, y] = ApplyFilterToPixel(original, x, y);
+
+            return filtered;
 		}
-	}
+
+	    private static double ApplyFilterToPixel(double[,] original, int x, int y)
+	    {
+            var nearestPixels = new List<double>();
+	        var startX = Math.Max(0, x - 1);
+	        var startY = Math.Max(0, y - 1);
+	        var endX = Math.Min(original.GetLength(0) - 1, x + 1);
+	        var endY = Math.Min(original.GetLength(1) - 1, y + 1);
+
+	        for (var j = startY; j < endY + 1; ++j)
+                for (var i = startX; i < endX + 1; ++i)
+                    nearestPixels.Add(original[i, j]);
+            
+            return CalculateMedian(nearestPixels);
+	    }
+
+        public static double CalculateMedian(List<double> values)
+        {
+            var sortedValues = values.OrderBy(x => x).ToList(); 
+            var middle = sortedValues.Count / 2;
+            if (sortedValues.Count % 2 == 0)
+                return (sortedValues[middle - 1] + sortedValues[middle]) / 2;
+            return sortedValues[middle];
+        }
+    }
 }
