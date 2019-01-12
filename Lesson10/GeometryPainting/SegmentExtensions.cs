@@ -1,11 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using GeometryTasks;
 
 namespace GeometryPainting
 {
-    //Напишите здесь код, который заставит работать методы segment.GetColor и segment.SetColor
+    public static class SegmentExtensions
+    {
+        public static Dictionary<Segment, Color> SegmentColors =
+            new Dictionary<Segment, Color>();
+
+        public static Color GetColor(this Segment segment) =>
+            SegmentColors.ContainsKey(segment) ? SegmentColors[segment] : Color.Black;
+
+        public static void SetColor(this Segment segment, Color color)
+        {
+            if (SegmentColors.ContainsKey(segment))
+            {
+                SegmentColors[segment] = color;
+                return;
+            }
+            SegmentColors.Add(segment, color);
+        }
+    }
 }
