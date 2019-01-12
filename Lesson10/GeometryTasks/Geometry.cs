@@ -1,0 +1,6 @@
+﻿namespace GeometryTasks
+{
+    class Geometry
+    {
+    }
+}
