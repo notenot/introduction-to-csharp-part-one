@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryTasks", "GeometryTasks\GeometryTasks.csproj", "{C4D59390-23B1-4D89-820E-0EF63D35A816}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryPainting", "GeometryPainting\GeometryPainting.csproj", "{A62E8811-66C0-4CCA-A140-1DA3FC70F7FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelAccounting", "HotelAccounting\HotelAccounting.csproj", "{F894C7F0-D64F-45C0-A935-4D1E9D2B8E64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C4D59390-23B1-4D89-820E-0EF63D35A816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4D59390-23B1-4D89-820E-0EF63D35A816}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4D59390-23B1-4D89-820E-0EF63D35A816}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4D59390-23B1-4D89-820E-0EF63D35A816}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A62E8811-66C0-4CCA-A140-1DA3FC70F7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A62E8811-66C0-4CCA-A140-1DA3FC70F7FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A62E8811-66C0-4CCA-A140-1DA3FC70F7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A62E8811-66C0-4CCA-A140-1DA3FC70F7FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F894C7F0-D64F-45C0-A935-4D1E9D2B8E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F894C7F0-D64F-45C0-A935-4D1E9D2B8E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F894C7F0-D64F-45C0-A935-4D1E9D2B8E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F894C7F0-D64F-45C0-A935-4D1E9D2B8E64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
