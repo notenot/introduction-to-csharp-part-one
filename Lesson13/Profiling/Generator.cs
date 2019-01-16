@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Profiling
@@ -82,8 +81,8 @@ namespace Profiling
 
             foreach (var index in indices)
                 result
-                    .Append(GenerateBlockFromMethodCall(true, index))
-                    .Append(GenerateBlockFromMethodCall(false, index));
+                    .Append(GenerateBlockFromFirstMethodCall(true, index))
+                    .Append(GenerateBlockFromFirstMethodCall(false, index));
 
             result.AppendLine("throw new ArgumentException();");
             result.AppendLine("}");
@@ -91,7 +90,7 @@ namespace Profiling
             return result.ToString();
         }
 
-        private static string GenerateBlockFromMethodCall(bool isClass, int index)
+        private static string GenerateBlockFromFirstMethodCall(bool isClass, int index)
         {
             var result = new StringBuilder();
             
@@ -110,7 +109,50 @@ namespace Profiling
 
         public static string GenerateCallRunner()
         {
-            throw new NotImplementedException();
+            var result = new StringBuilder("public class CallRunner : IRunner");
+            result.AppendLine();
+            result.AppendLine("{");
+
+            foreach (var fieldCount in Constants.FieldCounts)
+            {
+                result.AppendFormat("void PC{0}(C{0} o) {{ }}", fieldCount);
+                result.AppendLine();
+                result.AppendFormat("void PS{0}(S{0} o) {{ }}", fieldCount);
+                result.AppendLine();
+            }
+
+            result.Append("public void Call(bool isClass, int size, int count)");
+            result.AppendLine();
+            result.AppendLine("{");
+            
+            foreach (var index in Constants.FieldCounts)
+                result
+                    .Append(GenerateBlockFromSecondMethodCall(true, index))
+                    .Append(GenerateBlockFromSecondMethodCall(false, index));
+
+            result.AppendLine("throw new ArgumentException();");
+            result.AppendLine("}");
+            result.AppendLine("}");
+
+            return result.ToString();
+        }
+
+        private static string GenerateBlockFromSecondMethodCall(bool isClass, int index)
+        {
+            var result = new StringBuilder();
+
+            result.AppendFormat(
+                "if ({0}isClass && size == {1})", isClass ? "" : "!", index);
+            result.AppendLine();
+            result.AppendLine("{");
+            result.AppendFormat(
+                "var o = new {0}{1}(); for (int i = 0; i < count; i++) P{0}{1}(o);", 
+                isClass ? "C" : "S", index);
+            result.AppendLine();
+            result.AppendLine("return;");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
     }
 }
