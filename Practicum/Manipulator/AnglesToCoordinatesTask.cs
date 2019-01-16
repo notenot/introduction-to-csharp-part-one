@@ -48,7 +48,6 @@ namespace Manipulation
             double wristEndX, double wristEndY,
             double elbowEndX, double elbowEndY)
         {
-            {
             var joints = AnglesToCoordinatesTask.GetJointPositions(shoulder, elbow, wrist);
 
             Assert.AreEqual(palmEndX, joints[2].X, 1e-5, "palm endX");
