@@ -1,4 +1,4 @@
-# Introduction to C#
+# Introduction to C# (part one)
 
 Kontur online course: https://ulearn.me/Course/BasicProgramming
 
