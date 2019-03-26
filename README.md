@@ -2,4 +2,4 @@
 
 Kontur online course: https://ulearn.me/Course/BasicProgramming
 
-Wiki: https://github.com/notenot/introduction-to-csharp/wiki
+Wiki: https://github.com/notenot/introduction-to-csharp-part-one/wiki
